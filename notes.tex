@@ -1,0 +1,90 @@
+\documentclass[11pt]{article}
+\usepackage[letterpaper,margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb,latexsym}
+\usepackage{alltt,enumerate,bbm,eucal,graphicx,color,mathpazo,stmaryrd,bussproofs,mathpartir}
+\usepackage{tikz,pgfmath}
+\usepgflibrary{shapes}
+\usetikzlibrary{arrows,automata,backgrounds}
+
+\usepackage[style=alphabetic]{biblatex}
+\addbibresource{bibtex.bib}
+
+\begin{document}
+
+%% Macros %%
+\newcommand\one{\textsf 1}
+\newcommand\zero{\textsf 0}
+\newcommand\cost{\mathcal C}
+\newcommand\Lstar{$L^*$}
+
+%%\newtheorem{remark}{Remark}
+%%\newtheorem{question}{Q}
+\theoremstyle{remark}
+\newtheorem{alg}{Algorithm}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{prop}{Proposition}
+
+\setlength\parindent{0in}
+\addtolength\parskip{1ex}
+\setlength\fboxrule{.5mm}\setlength{\fboxsep}{1.2mm}
+\newlength\courseheader
+\setlength\courseheader\textwidth
+\addtolength\courseheader{-4mm}
+\parindent=0pt
+\parskip=1ex
+
+\begin{center}
+\framebox{\parbox\courseheader{\large
+CS6820 Algorithms\hfill December 15, 2021\\
+Final Project \hfill G\"oktu\u{g} Saatcioglu (gs724) \hfill Mark Moeller (mdm367)}}
+\end{center}
+\medskip
+
+These notes explore the problem of sampling random spanning trees on graphs. The
+focus will be to present and analyze Wilson's famous algorithm for this problem,
+but we take some detours along the way.
+
+\section{Introduction: Spanning Trees}
+
+In this section we introduce notation and explore basics of distributions on
+spanning trees.
+
+\subsection{Definitions}
+
+For a connected undirected graph $G = (V, E)$, a collection of edges $T \subseteq E$
+form a \emph{spanning tree} if $(V, T)$ is connected and acyclic.
+
+Suppose the edges have nonnegative costs given by a function $w\colon E \to
+\mathbb{R^+}$, then the weight of a spanning tree is:
+\[ w(T) = \sum_{e\in T} w(e) \]
+
+Prim's and Kruskal's algorithms are classic fast algorithms for finding minimum
+weight (i.e., cost) spanning trees. Kozen gives an enlightening general
+framework that includes both algorithms \cite{kozen}.
+
+In some situations in distributed systems or networking, however, we may not
+want the minimum weight tree necessarily, but instead we want to sample from a
+distribution of spanning trees.
+
+% Some stuff about how many trees there are?
+
+
+\section{Naive First Attempt}
+
+\section{Loop-erased Random Walks}
+
+
+\section{Wilson's Algorithm}
+
+% Wilson pseudocode
+\subsection{Spanning tree with specified root node}
+
+\subsection{Spanning tree with unspecified root}
+
+\section{Analysis of Wilson's Algorithm}
+
+
+
+\printbibliography
+\end{document}
