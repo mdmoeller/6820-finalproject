@@ -92,7 +92,46 @@ cycle
 \end{itemize}
 
 Unfortunately, we will not achieve the appropriate distributions following this
-path. As an example, [describe counterexample].
+path. For a counterexample, consider the triangle graph $G = (\{a,b,c\},
+\{(a,b),(b,c),(a,c)\})$, with edge weights:
+\[w(e) = \begin{cases}
+        2 & \text{ for } e = (a,b)\\
+        1 & \text{ for } e = (b,c)\\
+        1 & \text{ for } e = (a,c)
+        \end{cases}\]
+
+We observe that for this graph there are 3 spanning trees,
+$T_0 = \{(a,b), (a,c)\}$,
+$T_1 = \{(a,b), (b,c)\}$,
+$T_2 = \{(a,c), (b,c)\}$, with weights:
+
+\[w(T) = \begin{cases}
+        3 & \text{ for } T = T_0\\
+        3 & \text{ for } T = T_1\\
+        2 & \text{ for } T = T_2
+        \end{cases}\]
+
+Therefore we want to sample $T_0$ or $T_1$ each with probability 3/8, and $T_2$
+with probability 1/4. But if we sample the trees by the method described above
+(i.e., choosing edges propropotional to their weight---and for this graph just
+pick the first two), then we get the following distribution:
+
+\[
+(a,b), (a,c)\text{ with Pr }= 1/2 \cdot 1/2 = 1/4, (T_0 \text{selected})\\
+(a,c), (a,b)\text{ with Pr }= 1/4 \cdot 2/3 = 1/6, (T_0 \text{selected})\\
+(a,b), (b,c)\text{ with Pr }= 1/2 \cdot 1/2 = 1/4, (T_1 \text{selected})\\
+(b,c), (a,b)\text{ with Pr }= 1/4 \cdot 2/3 = 1/6, (T_1 \text{selected})\\
+(b,c), (a,c)\text{ with Pr }= 1/4 \cdot 1/3 = 1/12, (T_2 \text{selected})\\
+(a,c), (b,c)\text{ with Pr }= 1/4 \cdot 1/3 = 1/12, (T_2 \text{selected})
+\]
+
+So we get:
+\[ \text{Pr}(T_0) = 1/4 + 1/6 = 10/24\\
+   \text{Pr}(T_1) = 1/4 + 1/6 = 10/24\\
+   \text{Pr}(T_2) = 1/12 + 1/12 = 1/6\]
+
+which is the wrong distribution. We will see in the next section that
+\emph{loop-erased random walks} are the key to sampling spanning trees.
 
 \section{Loop-erased Random Walks}
 
@@ -107,7 +146,7 @@ path. As an example, [describe counterexample].
 \label{alg:root}
 \textbf{Input: }Graph $G=(V,E)$, Root $r \in V$ \\
 \textbf{Output: }Spanning tree $T$ \\
-\begin{algorithmic}
+\begin{algorithmic}[1]
 \STATE bool[n] inTree = \{false\} // n-length array, initally all false
 \STATE int[n] next = \{-1\}       // n-length array, initally all -1 (null)
 \FOR{$i$ in 0 to $n-1$:}
