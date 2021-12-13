@@ -1,0 +1,3 @@
+(library
+ (name kruskal)
+ (libraries core parser))
