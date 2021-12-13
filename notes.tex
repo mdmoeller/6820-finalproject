@@ -2,7 +2,7 @@
 \usepackage[letterpaper,margin=1in]{geometry}
 \usepackage{amsmath,amsthm,amssymb,latexsym}
 \usepackage{alltt,enumerate,bbm,eucal,graphicx,color,mathpazo,stmaryrd,bussproofs,mathpartir}
-\usepackage{tikz,pgfmath}
+\usepackage{tikz,pgfmath,algorithm,algorithmic}
 \usepgflibrary{shapes}
 \usetikzlibrary{arrows,automata,backgrounds}
 
@@ -23,6 +23,7 @@
 \newtheorem{alg}{Algorithm}
 
 \newtheorem{theorem}{Theorem}
+\newtheorem{defn}{Definition}
 \newtheorem{prop}{Proposition}
 
 \setlength\parindent{0in}
@@ -52,39 +53,101 @@ spanning trees.
 
 \subsection{Definitions}
 
+\begin{defn}
 For a connected undirected graph $G = (V, E)$, a collection of edges $T \subseteq E$
 form a \emph{spanning tree} if $(V, T)$ is connected and acyclic.
+\end{defn}
 
 Suppose the edges have nonnegative costs given by a function $w\colon E \to
 \mathbb{R^+}$, then the weight of a spanning tree is:
 \[ w(T) = \sum_{e\in T} w(e) \]
 
+\begin{defn}
+A spanning tree for $G$ is called the \emph{minimum spanning tree} if it has the
+minimum weight of all spanning trees of $G$.
+\end{defn}
+
 Prim's and Kruskal's algorithms are classic fast algorithms for finding minimum
-weight (i.e., cost) spanning trees. Kozen gives an enlightening general
-framework that includes both algorithms \cite{kozen}.
+spanning trees. Kozen gives an enlightening general framework that includes both
+algorithms \cite{kozen}.
 
 In some situations in distributed systems or networking, however, we may not
-want the minimum weight tree necessarily, but instead we want to sample from a
-distribution of spanning trees.
+want the minimum spanning tree necessarily, but instead we want to sample
+randomly from a distribution of spanning trees. We will present an algorithm due
+to Wilson \cite{wilson} for doing this in Section~\ref{wilson}. Then we will see
+how it can be extended to consider graphs with weights. In this case, the
+probability of sampling a given tree will be proportional to its weight.
 
 % Some stuff about how many trees there are?
 
 
 \section{Naive First Attempt}
 
+We might be tempted to try to sample random spanning trees by modifying
+Kruskal's algorithm. That is:
+\begin{itemize}
+\item Choose a random order on edges, perhaps based on edge weights
+\item Choose edges from the list in order, skipping an edge if it would make a
+cycle
+\end{itemize}
+
+Unfortunately, we will not achieve the appropriate distributions following this
+path. As an example, [describe counterexample].
+
 \section{Loop-erased Random Walks}
 
+% Talk about unweighted case here?
 
-\section{Wilson's Algorithm}
 
+\section{Wilson's Algorithm}\label{wilson}
 % Wilson pseudocode
 \subsection{Spanning tree with specified root node}
+\begin{algorithm}
+\caption{Wilson's algorithm for given root}
+\label{alg:root}
+\textbf{Input: }Graph $G=(V,E)$, Root $r \in V$ \\
+\textbf{Output: }Spanning tree $T$ \\
+\begin{algorithmic}
+\STATE bool[n] inTree = \{false\} // n-length array, initally all false
+\STATE int[n] next = \{-1\}       // n-length array, initally all -1 (null)
+\FOR{$i$ in 0 to $n-1$:}
+\STATE $u \leftarrow i$
+\WHILE{not inTree[u]:}
+\STATE next[u] $\leftarrow$ samplesucc(u)
+\STATE u $leftarrow$
+\ENDWHILE
+\STATE $u \leftarrow i$
+\WHILE{not inTree[u]:} \label{while}
+\STATE inTree[u] $\leftarrow$ true
+\STATE $u \leftarrow $next[u]
+\ENDWHILE \label{endwhile}
+\ENDFOR
+\end{algorithmic}
+\end{algorithm}
 
+First of all we note that this algorithm is simpler than one might expect! The
+loop on lines~\ref{while}-\ref{endwhile} does the loop erasure in a subtle way.
+Essentially, we observe that erasing a cycle is \emph{not} a special case, in
+the sense that if we end up back where we started, the successor we write down
+will overwrite the one that was previously there.
 \subsection{Spanning tree with unspecified root}
+\begin{algorithm}
+\caption{Wilson's algorithm for given root}
+\label{alg:root}
+\textbf{Input: }Graph $G=(V,E)$ \\
+\textbf{Output: }Spanning tree $T$ \\
+\begin{algorithmic}
+\STATE bool[n] inTree = \{false\} // n-length array, initally all false \\
+\STATE int[n] next = \{-1\}       // n-length array, initally all -1 (null) \\
+\STATE work in progress...
+\end{algorithmic}
+\end{algorithm}
 
 \section{Analysis of Wilson's Algorithm}
 
+% Talk about markov chain proof
 
+\section{Implementation}
 
 \printbibliography
 \end{document}
