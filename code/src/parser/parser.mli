@@ -1,6 +1,6 @@
 type graph = {
   v : Int.t;
-  e : ((Int.t * Float.t) List.t) Array.t;
+  e : ((Core.Int.t * Core.Float.t) Core.List.t) Core.Array.t;
 }
 
-val parse : String.t -> graph
+val parse : Core.String.t -> graph

@@ -1,3 +1,3 @@
-val with_root : graph:Parser.graph -> root:Int.t -> (Int.t * Int.t) List.t
+val with_root : root:Core.Int.t -> graph:Parser.graph -> (Core.Int.t * Core.Int.t) Core.List.t
 
-val without_root : graph:Parser.graph -> (Int.t * Int.t) List.t
+val without_root : graph:Parser.graph -> (Core.Int.t * Core.Int.t) Core.List.t
