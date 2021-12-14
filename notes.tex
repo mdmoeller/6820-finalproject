@@ -179,14 +179,14 @@ first time.
 \begin{algorithmic}[1]
 \STATE T = \{\}                   // Set of nodes which are in the tree
 \STATE next = \{\}                // Map from nodes to their successor
-\FOR{ each v in V:}
+\FOR{ each v in V}
 \STATE $u \leftarrow v$
-\WHILE{u not in T:}\label{walk}
+\WHILE{u not in T}\label{walk}
 \STATE next[u] $\leftarrow$ samplesuccessor(u)
 \STATE u $\leftarrow$ next[u]
 \ENDWHILE \label{endwalk}
 \STATE $u \leftarrow v$
-\WHILE{u not in T:} \label{adjoin}
+\WHILE{u not in T} \label{adjoin}
 \STATE T.add(u)
 \STATE $u \leftarrow $next[u]
 \ENDWHILE \label{endadjoin}
@@ -225,14 +225,14 @@ walk.
 \STATE T = \{\}                   // Set of nodes which are in the tree
 \STATE next = \{\}                // Map from nodes to their successor
 \STATE num\_roots $\leftarrow$ 0
-\FOR{$v$ in $V$:}
+\FOR{$v$ in $V$}
 \STATE $u \leftarrow i$
 \WHILE{u not in T:}
-\IF{chance($\epsilon$):}
+\IF{chance($\epsilon$)}
 \STATE next[u] $\leftarrow$ null
 \STATE T.add(u)
 \STATE num\_roots += 1
-\IF{num\_roots = 2:}
+\IF{num\_roots = 2}
 \STATE \textbf{return} Fail
 \ENDIF
 \ELSE
