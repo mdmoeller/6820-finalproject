@@ -1,0 +1,3 @@
+(library
+ (name tester)
+ (libraries core parser kruskal random_tree))

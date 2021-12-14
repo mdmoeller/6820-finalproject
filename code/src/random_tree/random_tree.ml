@@ -23,7 +23,7 @@ let rand_succ out =
   let rnd = Random.float 1. in
   List.find_exn out ~f:(fun (_,p) -> Float.(rnd <= p)) |> fst
 
-let with_root ~graph ~root =
+let with_root ~root ~graph =
   normalize1 graph.e;
   let in_tree = Array.init graph.v ~f:(fun _ -> false) in
   let next = Array.init graph.v ~f:(fun _ -> -1) in
@@ -41,7 +41,13 @@ let with_root ~graph ~root =
       u := next.(!u)
     done
   done;
-  Array.mapi next ~f:(fun i j -> (i,j)) |> Array.to_list
+  Array.filter_mapi next ~f:(fun i j ->
+    if i = -1 || j = -1 then None
+    else begin
+      if i < j then Some ((i,j))
+      else Some ((j,i))
+    end)
+  |> Array.to_list
 
 let without_root ~graph =
   normalize2 graph.e;
@@ -84,4 +90,10 @@ let without_root ~graph =
     | Some next -> next
   in
   let next = loop 0.5 in
-  Array.mapi next ~f:(fun i j -> (i,j)) |> Array.to_list
+  Array.filter_mapi next ~f:(fun i j ->
+    if i = -1 || j = -1 then None
+    else begin
+      if i < j then Some ((i,j))
+      else Some ((j,i))
+    end)
+  |> Array.to_list

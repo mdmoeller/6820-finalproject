@@ -1,4 +1,4 @@
 (executable
  (name tree_sampler)
- (libraries core parser random_tree kruskal)
+ (libraries core parser random_tree kruskal tester)
  (preprocess (pps ppx_jane)))
