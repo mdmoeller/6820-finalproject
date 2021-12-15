@@ -86,7 +86,7 @@ probability of sampling a given tree will be proportional to its weight.
 % Some stuff about how many trees there are?
 
 
-\section{Naive First Attempt}
+\section{Naive First Attempt}\label{naive-attempt}
 
 We might be tempted to try to sample random spanning trees by modifying
 Kruskal's algorithm. That is:
@@ -258,6 +258,19 @@ shown in Algorithm~\ref{alg:noroot}.
 % Talk about markov chain proof
 
 \section{Implementation}\label{imp}
+
+We discuss our implementation of Wilson's Algorithm~\ref{alg:root} and Wilson's Algorithm~\ref{alg:noroot} along with an implementation of Kruskal's minimum spanning tree algorithm where the order on the edges being processed by the algorithm can be chosen according to three different strategies. These strategies are as follows. Firstly, we can order all edges by increasing edge cost to get the classic Kruskal's algorithm for minimum spanning trees. Secondly, we can output a random permutation of the edges to get a simple ``randomized'' version of Kruskal's algorithm. Thirdly, we can output a random ordering of edges where the probability that we pick a certain edge weight in the ordering is proportional to its edge weight and the edge weight of all unpicked edges so far. The last two options correspond to a naive approach for sampling a random spanning tree as outlined in Section~\ref{naive-attempt}.
+
+Our implementation is written OCaml \texttt{4.11.0} and can be located in the \texttt{code} folder of the public GitHub repository for this project. We rely on the Dune build system and Jane Street's Core and Core\_Bench libraries. \iffalse TO-DO: REFERENCES \fi Details on installing OCaml, the relevant dependencies and compiling the program can be found in the \texttt{README}. At a high-level, we have four modules.
+
+\begin{itemize}
+\item \texttt{Parser}: The parser takes as an input a file name that describes the undirected graph we would like to analyze and outputs a representation of that graph that we use for our algorithms. The input file describes a graph as two integers $n$ and $m$ which correspond to the number of vertices and edges of the graph respectively. Furthermore, the user enters $m$ lines in the format $i,j,p$ which is interpreted as an edge $(i,j)$ with weight $p$. The parser output a set of vertices $\{0,\dots,n-1\}$ and a adjacency list representation of the graph.
+\item \texttt{Random\_tree}: This module implements Wilson's Algorithm~\ref{alg:root} and Wilson's Algorithm~\ref{alg:noroot} by taking as input a graph from the \texttt{Parser} module and running the corresponding algorithms as described in Section~\label{wilson} and Wilson's original paper \cite{wilson}. The output is a set of edges which can then be written to a file where each edge is written to a line of the file.
+\item \tettt{Kruskal}: The \texttt{Kruskal} module implements the three Kruskal algorithms described in the beginning paragraph of this section. Each algorithm takes as input a graph from the \texttt{Parser} module and sorts the edges accordingly. Then, Kruskal's minimum spanning tree algorithm is run and we output a set of edges that corresponds to a minimum spanning tree with respect to the order we picked. This module also has a function to generate all spanning trees of a given graph. The implementation is simple and takes exponential time, we generate all permutation of the edge set of a graph and for each permutation run Kruskal's minimum spanning tree algorithm. To remove isomorphic spanning trees we canonicalize each spanning tree by sorting the edge set using the lexicographic ordering on $\mathbb{N}\times\mathbb{N}$.
+\tem \texttt{Tester}: The \texttt{Tester} module runs a set of tests to measure the empirical distribution of the spanning trees found by each algorithm and the average running time of each algorithm. To achieve this the module exposes a single function called \texttt{test} that accepts as input a graph from the \texttt{Parser} module and an integer \texttt{iter} which is the number of times a given test should be run. Then, the test suite will generate all spanning trees using \texttt{Kruskal} and run each algorithm from \texttt{Random\_tree} and \tettt{Kruskal} \texttt{iter} many times. The results of the frequencies of each spanning tree is saved to a file while the running times of each algorithm is printed to the screen. This is actually a quirk of the Core\_Bench as it has limited functionality and we could find no other micro-benchmarking library for OCaml. (Here, micro-benchmarks are necessary as none of our tests on average run for more than a couple of hundred micro-seconds.)
+\end{itemize}
+
+The generated program, \texttt{tree_sampler}, can be used to run either any one of the algorithms individually or the test suite. The test suite is used to run our experimental evaluation which we describe next.
 
 \printbibliography
 \end{document}

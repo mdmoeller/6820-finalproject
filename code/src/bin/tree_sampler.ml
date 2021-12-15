@@ -39,7 +39,7 @@ let () =
           | KruskalDet -> Kruskal.det_kruskal ~graph |> canonc, Printf.sprintf "%s_det_kruskal_out" fname 
           | KruskalRandSimp -> Kruskal.simp_rand_kruskal ~graph |> canonc, Printf.sprintf "%s_simple_random_kruskal_out" fname
           | KruskalRandProp -> Kruskal.prop_rand_kruskal ~graph |> canonc, Printf.sprintf "%s_proportional_random_kruskal_out" fname
-          | Test (iters) -> Tester.test ~graph ~iters:iters, Printf.sprintf "%s_test_distributions" fname
+          | Test (iters) -> Tester.test ~fname ~graph ~iters:iters, Printf.sprintf "%s_test_distributions" fname
         in
         Stdio.Out_channel.with_file out ~f:(fun file -> Stdio.Out_channel.output_lines file res)]
   |> Command.run 

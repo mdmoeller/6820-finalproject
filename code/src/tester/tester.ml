@@ -12,7 +12,7 @@ let gen_tests root = [
   (Random_tree.with_root ~root:root, (Printf.sprintf "Random_tree_with_root_%d" root));
 ]
 
-let test ~graph ~iters =
+let test ~fname ~graph ~iters =
   let sts = Kruskal.gen_all_sts ~graph in
   let reset () = Hashtbl.map_inplace sts ~f:(fun _ -> 0) in
   let quota = Core_bench.Bench.Quota.Num_calls (iters) in 
@@ -26,7 +26,7 @@ let test ~graph ~iters =
     Core_bench.Bench.bench
       ~run_config:config
       ~analysis_configs:analysis
-      ~save_to_file:(fun _ -> Printf.sprintf "%s_%s" typ "stats")
+      ~save_to_file:(fun _ -> Printf.sprintf "%s_%s_%s" fname typ "stats")
       [bench];
     let dist = Hashtbl.fold sts ~init:"" ~f:(fun ~key ~data acc -> Printf.sprintf "%s\t\t%s: %d\n" acc key data) in
     reset ();
