@@ -4,4 +4,4 @@ val simp_rand_kruskal : graph:Parser.graph -> (Core.Int.t * Core.Int.t) Core.Lis
 
 val prop_rand_kruskal : graph:Parser.graph -> (Core.Int.t * Core.Int.t) Core.List.t
 
-val gen_all_sts : graph:Parser.graph -> (Core.String.t, Core.Int.t) Core.Hashtbl.t
+val gen_all_sts : graph:Parser.graph -> (Core.String.t, Core.Int.t) Core.Hashtbl.t * (Core.String.t, Core.Float.t) Core.Hashtbl.t

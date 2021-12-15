@@ -48,8 +48,22 @@ let gen_all_sts ~graph =
   let rec fact n acc = if n = 0 then acc else fact (n - 1) (acc * n) in 
   let canonc st = List.stable_sort st ~compare:(fun (i1,j1) (i2,j2) -> Tuple2.compare ~cmp1:Int.compare ~cmp2:Int.compare (i1,j1) (i2,j2)) in
   let to_str st = List.fold_left st ~init:"" ~f:(fun acc (i,j) -> Printf.sprintf "%s (%d,%d)" acc i j) |> String.strip in
+  let weights = Hashtbl.create ~size:(Array.length graph.e * graph.v * 2) (module String) in
+  Array.iteri graph.e ~f:(fun i l ->
+    List.iter l ~f:(fun (j,p) -> 
+      Hashtbl.update weights (Printf.sprintf "(%d,%d)" i j) ~f:(fun _ -> p)));
   let sorted_edges = preprocess graph.e in
   let perms = List.gen_permutations sorted_edges in
-  let sts = Hashtbl.create ~size:(fact (List.length sorted_edges) 0) (module String) in
-  Quickcheck.iter perms ~f:(fun perm -> Hashtbl.update sts (kruskal graph.v perm |> canonc |> to_str) ~f:(fun _ -> 0));
-  sts
+  let sorted_edges_len_fact = fact (List.length sorted_edges) 0 in
+  let sts = Hashtbl.create ~size:sorted_edges_len_fact (module String) in
+  let rdist = Hashtbl.create ~size:sorted_edges_len_fact (module String) in
+  Quickcheck.iter perms ~f:(fun perm ->
+    let res = kruskal graph.v perm |> canonc in
+    let res_str = to_str res in 
+    let weight = List.fold_left res ~init:1. ~f:(fun acc (i,j) -> acc *. (Hashtbl.find_exn weights (Printf.sprintf "(%d,%d)" i j))) in 
+    Hashtbl.update rdist res_str ~f:(fun _ -> weight);
+    Hashtbl.update sts res_str ~f:(fun _ -> 0));
+    (*Hashtbl.update sts (kruskal graph.v perm |> canonc |> to_str) ~f:(fun _ -> 0)*)
+  let total_weight = Hashtbl.fold rdist ~init:0. ~f:(fun ~key:_ ~data:p acc -> p +. acc) in 
+  Hashtbl.map_inplace rdist ~f:(fun p -> Float.(p / total_weight));
+  sts, rdist
