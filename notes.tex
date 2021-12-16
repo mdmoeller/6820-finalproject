@@ -15,6 +15,7 @@
 \newcommand\one{\textsf 1}
 \newcommand\zero{\textsf 0}
 \newcommand\cost{\mathcal C}
+\newcommand\Pr{\text{Pr}}
 
 %%\newtheorem{remark}{Remark}
 %%\newtheorem{question}{Q}
@@ -72,7 +73,7 @@ minimum weight of all spanning trees of $G$.
 \end{defn}
 
 Prim's and Kruskal's algorithms are classic fast algorithms for finding minimum
-spanning trees. Kozen gives an enlightening general framework that includes both
+spanning trees. Kozen gives an enlightening general framework that subsumes both
 algorithms \cite{kozen}.
 
 In some situations in distributed systems or networking, however, we may not
@@ -87,8 +88,9 @@ probability of sampling a given tree will be proportional to its weight.
 
 \section{Naive First Attempt}\label{naive-attempt}
 
-We might be tempted to try to sample random spanning trees by modifying
-Kruskal's algorithm. That is:
+Before seeing Wilson's algorithm, which is based on random walks, we might be
+tempted to try to sample random spanning trees by modifying Kruskal's algorithm.
+That is:
 \begin{itemize}
 \item Choose a random order on edges, perhaps based on edge weights
 \item Choose edges from the list in order, skipping an edge if it would make a
@@ -149,10 +151,13 @@ self-transitions will have no affect on the ensuing algorithms, for reasons that
 will be clear shortly.
 
 \begin{defn}
-A \emph{random walk} on a graph $G=(V,E)$ is a sequence of vertices $v_i \in V$ of a Markov
-chain $M$ whose state is a node $v \in V$ and which, at each step, transitions
-to a neighbor of $v$ with probabilities given by $M$.
+Given a stochastic $n\times n$ matrix $M$ corresponding to a graph $G = (V, E)$,
+a \emph{random walk} is a sequence of vertices $v_i \in V$ such that
+$\Pr(v_{i+1} = u) = M_{v_i,u}$.
 \end{defn}
+
+In other words, a random walk is just a run of a Markov chain whose state is a
+single node and which can only transition to neighboring nodes.
 
 A \emph{loop-erased random walk} (or \emph{self-avoiding random walk}) is
 obtained by deleting the cycles of a random walk. That is, if in the course of
