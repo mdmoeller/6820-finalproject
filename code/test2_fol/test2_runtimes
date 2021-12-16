@@ -1,0 +1,66 @@
+Estimated testing time unknown (1 benchmarks x 1000000 trials). Change using '-quota'.
+┌───────────────────────┬──────────┬───────────┐
+│ Name                  │ Time/Run │ Cycls/Run │
+├───────────────────────┼──────────┼───────────┤
+│ Deterministic_Kruskal │   3.44us │    4.79kc │
+└───────────────────────┴──────────┴───────────┘
+Estimated testing time unknown (1 benchmarks x 1000000 trials). Change using '-quota'.
+┌───────────────────────┬──────────┬───────────┐
+│ Name                  │ Time/Run │ Cycls/Run │
+├───────────────────────┼──────────┼───────────┤
+│ Simple_random_Kruskal │   3.99us │    5.55kc │
+└───────────────────────┴──────────┴───────────┘
+Estimated testing time unknown (1 benchmarks x 1000000 trials). Change using '-quota'.
+┌─────────────────────────────┬──────────┬───────────┐
+│ Name                        │ Time/Run │ Cycls/Run │
+├─────────────────────────────┼──────────┼───────────┤
+│ Proportional_random_Kruskal │   5.40us │    7.51kc │
+└─────────────────────────────┴──────────┴───────────┘
+Estimated testing time unknown (1 benchmarks x 1000000 trials). Change using '-quota'.
+┌──────────────────────────┬──────────┬───────────┐
+│ Name                     │ Time/Run │ Cycls/Run │
+├──────────────────────────┼──────────┼───────────┤
+│ Random_tree_without_root │   6.13us │    8.54kc │
+└──────────────────────────┴──────────┴───────────┘
+Estimated testing time unknown (1 benchmarks x 1000000 trials). Change using '-quota'.
+┌─────────────────────────┬──────────┬───────────┐
+│ Name                    │ Time/Run │ Cycls/Run │
+├─────────────────────────┼──────────┼───────────┤
+│ Random_tree_with_root_0 │   3.60us │    5.02kc │
+└─────────────────────────┴──────────┴───────────┘
+Estimated testing time unknown (1 benchmarks x 1000000 trials). Change using '-quota'.
+┌─────────────────────────┬──────────┬───────────┐
+│ Name                    │ Time/Run │ Cycls/Run │
+├─────────────────────────┼──────────┼───────────┤
+│ Random_tree_with_root_1 │   3.18us │    4.43kc │
+└─────────────────────────┴──────────┴───────────┘
+Estimated testing time unknown (1 benchmarks x 1000000 trials). Change using '-quota'.
+┌─────────────────────────┬──────────┬───────────┐
+│ Name                    │ Time/Run │ Cycls/Run │
+├─────────────────────────┼──────────┼───────────┤
+│ Random_tree_with_root_2 │   3.52us │    4.90kc │
+└─────────────────────────┴──────────┴───────────┘
+Estimated testing time unknown (1 benchmarks x 1000000 trials). Change using '-quota'.
+┌─────────────────────────┬──────────┬───────────┐
+│ Name                    │ Time/Run │ Cycls/Run │
+├─────────────────────────┼──────────┼───────────┤
+│ Random_tree_with_root_3 │   3.11us │    4.32kc │
+└─────────────────────────┴──────────┴───────────┘
+Estimated testing time unknown (1 benchmarks x 1000000 trials). Change using '-quota'.
+┌─────────────────────────┬──────────┬───────────┐
+│ Name                    │ Time/Run │ Cycls/Run │
+├─────────────────────────┼──────────┼───────────┤
+│ Random_tree_with_root_4 │   3.07us │    4.27kc │
+└─────────────────────────┴──────────┴───────────┘
+Estimated testing time unknown (1 benchmarks x 1000000 trials). Change using '-quota'.
+┌─────────────────────────┬──────────┬───────────┐
+│ Name                    │ Time/Run │ Cycls/Run │
+├─────────────────────────┼──────────┼───────────┤
+│ Random_tree_with_root_5 │   3.38us │    4.71kc │
+└─────────────────────────┴──────────┴───────────┘
+Estimated testing time unknown (1 benchmarks x 1000000 trials). Change using '-quota'.
+┌─────────────────────────┬──────────┬───────────┐
+│ Name                    │ Time/Run │ Cycls/Run │
+├─────────────────────────┼──────────┼───────────┤
+│ Random_tree_with_root_6 │   3.36us │    4.67kc │
+└─────────────────────────┴──────────┴───────────┘

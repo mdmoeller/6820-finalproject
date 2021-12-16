@@ -1,0 +1,42 @@
+Estimated testing time unknown (1 benchmarks x 1000000 trials). Change using '-quota'.
+┌───────────────────────┬──────────┬───────────┐
+│ Name                  │ Time/Run │ Cycls/Run │
+├───────────────────────┼──────────┼───────────┤
+│ Deterministic_Kruskal │   1.17us │    1.63kc │
+└───────────────────────┴──────────┴───────────┘
+Estimated testing time unknown (1 benchmarks x 1000000 trials). Change using '-quota'.
+┌───────────────────────┬──────────┬───────────┐
+│ Name                  │ Time/Run │ Cycls/Run │
+├───────────────────────┼──────────┼───────────┤
+│ Simple_random_Kruskal │   1.28us │    1.78kc │
+└───────────────────────┴──────────┴───────────┘
+Estimated testing time unknown (1 benchmarks x 1000000 trials). Change using '-quota'.
+┌─────────────────────────────┬──────────┬───────────┐
+│ Name                        │ Time/Run │ Cycls/Run │
+├─────────────────────────────┼──────────┼───────────┤
+│ Proportional_random_Kruskal │   1.40us │    1.95kc │
+└─────────────────────────────┴──────────┴───────────┘
+Estimated testing time unknown (1 benchmarks x 1000000 trials). Change using '-quota'.
+┌──────────────────────────┬──────────┬───────────┐
+│ Name                     │ Time/Run │ Cycls/Run │
+├──────────────────────────┼──────────┼───────────┤
+│ Random_tree_without_root │   1.76us │    2.45kc │
+└──────────────────────────┴──────────┴───────────┘
+Estimated testing time unknown (1 benchmarks x 1000000 trials). Change using '-quota'.
+┌─────────────────────────┬──────────┬───────────┐
+│ Name                    │ Time/Run │ Cycls/Run │
+├─────────────────────────┼──────────┼───────────┤
+│ Random_tree_with_root_0 │   1.10us │    1.53kc │
+└─────────────────────────┴──────────┴───────────┘
+Estimated testing time unknown (1 benchmarks x 1000000 trials). Change using '-quota'.
+┌─────────────────────────┬──────────┬───────────┐
+│ Name                    │ Time/Run │ Cycls/Run │
+├─────────────────────────┼──────────┼───────────┤
+│ Random_tree_with_root_1 │   1.11us │    1.55kc │
+└─────────────────────────┴──────────┴───────────┘
+Estimated testing time unknown (1 benchmarks x 1000000 trials). Change using '-quota'.
+┌─────────────────────────┬──────────┬───────────┐
+│ Name                    │ Time/Run │ Cycls/Run │
+├─────────────────────────┼──────────┼───────────┤
+│ Random_tree_with_root_2 │   1.20us │    1.67kc │
+└─────────────────────────┴──────────┴───────────┘

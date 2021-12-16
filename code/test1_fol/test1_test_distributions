@@ -1,0 +1,55 @@
+Expected distribution:
+		(0,1) (1,2): 400000.000000
+		(0,1) (0,2): 400000.000000
+		(0,2) (1,2): 200000.000000
+
+
+Test type: Deterministic_Kruskal
+	Distribution:
+		(0,1) (1,2): 0
+		(0,1) (0,2): 0
+		(0,2) (1,2): 1000000
+
+
+Test type: Simple_random_Kruskal
+	Distribution:
+		(0,1) (1,2): 332780
+		(0,1) (0,2): 333344
+		(0,2) (1,2): 333876
+
+
+Test type: Proportional_random_Kruskal
+	Distribution:
+		(0,1) (1,2): 333485
+		(0,1) (0,2): 533107
+		(0,2) (1,2): 133408
+
+
+Test type: Random_tree_without_root
+	Distribution:
+		(0,1) (1,2): 400308
+		(0,1) (0,2): 399860
+		(0,2) (1,2): 199832
+
+
+Test type: Random_tree_with_root_0
+	Distribution:
+		(0,1) (1,2): 400959
+		(0,1) (0,2): 399187
+		(0,2) (1,2): 199854
+
+
+Test type: Random_tree_with_root_1
+	Distribution:
+		(0,1) (1,2): 400431
+		(0,1) (0,2): 400237
+		(0,2) (1,2): 199332
+
+
+Test type: Random_tree_with_root_2
+	Distribution:
+		(0,1) (1,2): 399925
+		(0,1) (0,2): 400008
+		(0,2) (1,2): 200067
+
+
