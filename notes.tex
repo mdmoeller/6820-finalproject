@@ -314,7 +314,7 @@ To answer these questions we run our test suite as described in Section~\ref{imp
 We ran our test suite for $1$ million iterations for each algorithm on the graph from Section~\ref{naive-attempt}. Figure~\ref{fig1} gives the experimental distributions of running each of our algorithms $1$ million times. The deterministic Kruskal algorithm is only there as a sanity check as we expect it to provide the same result every iteration. The simple random Kruskal simply randomizes the edge order before running Kruskal's algorithm while the proportional random Kruskal makes sure to take into account the edge weights when picking a random order. The Wilson's algorithms are split into the without root case and the with root case where we try every possible root. The bars represent the three spanning trees where $T_0$, $T_1$ and $T_2$ correspond to the same spanning trees given in Section~\ref{naive-attempt}.
 
 \begin{figure}[ht]
-\includegraphics[scale=0.60]{fig1.png}
+\includegraphics[scale=0.60]{figs/fig1.png}
 \caption{Experimental results of the testing suite on Graph~\ref{fig:graph1}}
 \centering
 \label{fig1}
@@ -389,14 +389,14 @@ As mentioned previously, we use the graph from the Wikipedia article for `Kruska
 The graph in Figure~\ref{fig:graph2} has $6$ different roots and $141$ canonicalized spanning trees. This causes some cluttering if we were to present all the data in one chart so we choose to present the results for the following algorithms: simple randomized Kruskal, proportional randomized Kruskal, Wilson's algorithm with no root and Wilson's algorithm with the root chosen to be as $0$. The rest of the graphs comparing the expeted distribution to Wilson's algorithm where the root is chosen to be $1$ through $6$ can be found in the appendix Section~\ref{appendix1}. Figure~\ref{fig2} and Figure~\ref{fig3} presents the distributions obtained from our experiment. We use dashed vertical lines to delineate the experimental distrbitutions.
 
 \begin{figure}[ht]
-\includegraphics[scale=0.45]{fig2.png}
+\includegraphics[scale=0.45]{figs/fig2.png}
 \caption{Experimental results of the testing suite on Graph~\ref{fig:graph2} comparing the expected distribution to the distributions produced by simple randomized Kruskal, Wilson's unrooted algorithm and Wilson's algorithm with root $0$}
 \centering
 \label{fig2}
 \end{figure}
 
 \begin{figure}[ht]
-\includegraphics[scale=0.45]{fig3.png}
+\includegraphics[scale=0.45]{figs/fig3.png}
 \caption{Experimental results of the testing suite on Graph~\ref{fig:graph2} comparing the expected distribution to the distributions produced by proportional randomized Kruskal}
 \centering
 \label{fig3}
@@ -462,14 +462,14 @@ Future work includes running more experiments where we measure the differences b
 \section{Additional graphs from Section~\ref{test2}}\label{appendix1}
 
 \begin{figure}[ht]
-\includegraphics[scale=0.40]{fig4.png}
+\includegraphics[scale=0.40]{figs/fig4.png}
 \caption{Experimental results of the testing suite on Graph~\ref{fig:graph2} comparing the expected distribution to the distributions produced by Wilson's algorithm with roots $1$ through $3$}
 \centering
 \label{fig4}
 \end{figure}
 
 \begin{figure}[ht]
-\includegraphics[scale=0.40]{fig5.png}
+\includegraphics[scale=0.40]{figs/fig5.png}
 \caption{Experimental results of the testing suite on Graph~\ref{fig:graph2} comparing the expected distribution to the distributions produced by Wilson's algorithm with roots $4$ through $6$}
 \centering
 \label{fig5}
