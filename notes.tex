@@ -201,7 +201,7 @@ first time.
 \caption{Wilson's algorithm for given root}
 \label{alg:root}
 \textbf{Input: }Graph $G=(V,E)$, Root $r \in V$ \\
-\textbf{Output: }Spanning tree $T$ \\
+\textbf{Output: }Spanning tree $T$
 \begin{algorithmic}[1]
 \STATE T = \{\}                   // Set of nodes which are in the tree
 \STATE next = \{\}                // Map from nodes to their successor
@@ -246,7 +246,7 @@ walk.
 \caption{Wilson's algorithm with unspecified root}
 \label{alg:noroot}
 \textbf{Input: }Graph $G=(V,E)$, probability $\epsilon$ \\
-\textbf{Output: }Spanning tree $T$ \\
+\textbf{Output: }Spanning tree $T$
 \begin{algorithmic}
 \STATE T = \{\}                   // Set of nodes which are in the tree
 \STATE next = \{\}                // Map from nodes to their successor
@@ -267,7 +267,7 @@ walk.
 \ENDIF
 \STATE $u \leftarrow v$
 \ENDWHILE
-\WHILE{u not in T} \label{adjoin}
+\WHILE{u not in T} \label{adjoin2}
 \STATE T.add(u)
 \STATE $u \leftarrow $next[u]
 \ENDWHILE
@@ -287,7 +287,7 @@ shown in Algorithm~\ref{alg:noroot}.
 
 We discuss our implementation of Wilson's Algorithm~\ref{alg:root} and Wilson's Algorithm~\ref{alg:noroot} along with an implementation of Kruskal's minimum spanning tree algorithm where the order on the edges being processed by the algorithm can be chosen according to three different strategies. These strategies are as follows. Firstly, we can order all edges by increasing edge cost to get the classic Kruskal's algorithm for minimum spanning trees. Secondly, we can output a random permutation of the edges to get a simple ``randomized'' version of Kruskal's algorithm. Thirdly, we can output a random ordering of edges where the probability that we pick a certain edge weight in the ordering is proportional to its edge weight and the edge weight of all unpicked edges so far. The last two options correspond to a naive approach for sampling a random spanning tree as outlined in Section~\ref{naive-attempt}.
 
-Our implementation is written OCaml \texttt{4.11.0} and can be located in the \texttt{code} folder of the public GitHub repository \footenote{\url{https://github.com/mdmoeller/6820-finalproject}} for this project. We rely on the Dune \footnote{\url{https://github.com/ocaml/dune}} build system and Jane Street's Core \footnote{\url{https://opensource.janestreet.com/core/}} and Core\_Bench \footnote{\url{https://github.com/janestreet/core_bench}} libraries. Details on installing OCaml, the relevant dependencies and compiling the program can be found in the \texttt{README}. At a high-level, we have four modules.
+Our implementation is written OCaml \texttt{4.11.0} and can be located in the \texttt{code} folder of the public GitHub repository \footnote{\url{https://github.com/mdmoeller/6820-finalproject}} for this project. We rely on the Dune \footnote{\url{https://github.com/ocaml/dune}} build system and Jane Street's Core \footnote{\url{https://opensource.janestreet.com/core/}} and Core\_Bench \footnote{\url{https://github.com/janestreet/core_bench}} libraries. Details on installing OCaml, the relevant dependencies and compiling the program can be found in the \texttt{README}. At a high-level, we have four modules.
 
 \begin{itemize}
 \item \texttt{Parser}: The parser takes as an input a file name that describes the undirected graph we would like to analyze and outputs a representation of that graph that we use for our algorithms. The input file describes a graph as two integers $n$ and $m$ which correspond to the number of vertices and edges of the graph respectively. Furthermore, the user enters $m$ lines in the format $i,j,p$ which is interpreted as an edge $(i,j)$ with weight $p$. The parser output a set of vertices $\{0,\dots,n-1\}$ and a adjacency list representation of the graph.
@@ -324,7 +324,7 @@ We see the expected results. The simple randomized Kruskal's algorithm almost sp
 
 We also measure the runtime both in average micro-seconds to complete a single run of a given algorithm and the average of CPU cycles it took to complete a single run of a given algorithm. Table~\ref{tab1} gives the performance results of our experiments. Here, kc stands for thousands (kilo) of cycles.
 
-\begin{table}[h!]
+\begin{table}[ht]
 \centering
 \begin{tabular}{||c c c||} 
 \hline
@@ -389,14 +389,14 @@ As mentioned previously, we use the graph from the Wikipedia article for `Kruska
 The graph in Figure~\ref{fig:graph2} has $6$ different roots and $141$ canonicalized spanning trees. This causes some cluttering if we were to present all the data in one chart so we choose to present the results for the following algorithms: simple randomized Kruskal, proportional randomized Kruskal, Wilson's algorithm with no root and Wilson's algorithm with the root chosen to be as $0$. The rest of the graphs comparing the expeted distribution to Wilson's algorithm where the root is chosen to be $1$ through $6$ can be found in the appendix Section~\ref{appendix1}. Figure~\ref{fig2} and Figure~\ref{fig3} presents the distributions obtained from our experiment. We use dashed vertical lines to delineate the experimental distrbitutions.
 
 \begin{figure}[ht]
-\includegraphics[scale=0.60]{fig2.png}
+\includegraphics[scale=0.45]{fig2.png}
 \caption{Experimental results of the testing suite on Graph~\ref{fig:graph2} comparing the expected distribution to the distributions produced by simple randomized Kruskal, Wilson's unrooted algorithm and Wilson's algorithm with root $0$}
 \centering
 \label{fig2}
 \end{figure}
 
 \begin{figure}[ht]
-\includegraphics[scale=0.60]{fig3.png}
+\includegraphics[scale=0.45]{fig3.png}
 \caption{Experimental results of the testing suite on Graph~\ref{fig:graph2} comparing the expected distribution to the distributions produced by proportional randomized Kruskal}
 \centering
 \label{fig3}
@@ -406,7 +406,7 @@ We see similar results to Test 1 but the distributions do not perfectly line up 
 
 Next, we also again measure the runtime both in average micro-seconds to complete a single run of a given algorithm and the average of CPU cycles it took to complete a single run of a given algorithm. Table~\ref{tab2} gives the performance results of these experiments.
 
-\begin{table}[h!]
+\begin{table}[ht]
 \centering
 \begin{tabular}{||c c c||} 
 \hline
@@ -462,15 +462,15 @@ Future work includes running more experiments where we measure the differences b
 \section{Additional graphs from Section~\ref{test2}}\label{appendix1}
 
 \begin{figure}[ht]
-\includegraphics[scale=0.60]{fig4.png}
-\caption{Experimental results of the testing suite on Graph~\ref{fig:graph4} comparing the expected distribution to the distributions produced by Wilson's algorithm with roots $1$ through $3$}
+\includegraphics[scale=0.40]{fig4.png}
+\caption{Experimental results of the testing suite on Graph~\ref{fig:graph2} comparing the expected distribution to the distributions produced by Wilson's algorithm with roots $1$ through $3$}
 \centering
 \label{fig4}
 \end{figure}
 
 \begin{figure}[ht]
-\includegraphics[scale=0.60]{fig5.png}
-\caption{Experimental results of the testing suite on Graph~\ref{fig:graph5} comparing the expected distribution to the distributions produced by Wilson's algorithm with roots $4$ through $6$}
+\includegraphics[scale=0.40]{fig5.png}
+\caption{Experimental results of the testing suite on Graph~\ref{fig:graph2} comparing the expected distribution to the distributions produced by Wilson's algorithm with roots $4$ through $6$}
 \centering
 \label{fig5}
 \end{figure}
