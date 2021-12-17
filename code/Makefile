@@ -11,5 +11,5 @@ clean:
 build:
 	dune build src/bin/tree_sampler.exe --root=.
 
-rebuild: clean gossip
+rebuild: clean tree_sampler
 	
