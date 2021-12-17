@@ -3,6 +3,7 @@
 \usepackage{amsmath,amsthm,amssymb,latexsym}
 \usepackage{alltt,enumerate}
 \usepackage{tikz,pgfmath,algorithm,algorithmic}
+\usepackage{appendix}
 \usepgflibrary{shapes}
 \usetikzlibrary{arrows,automata,backgrounds}
 
@@ -44,8 +45,8 @@
 
 \begin{center}
 \framebox{\parbox\courseheader{\large
-CS6820 Algorithms\hfill December 15, 2021\\
-Final Project \hfill G\"oktu\u{g} Saatcioglu (gs724) \hfill Mark Moeller (mdm367)}}
+CS6820 Algorithms\hfill December 17, 2021\\
+Final Project \hfill G\"oktu\u{g} Saatcio\u{g}lu (gs724) \hfill Mark Moeller (mdm367)}}
 \end{center}
 \medskip
 
@@ -286,7 +287,7 @@ shown in Algorithm~\ref{alg:noroot}.
 
 We discuss our implementation of Wilson's Algorithm~\ref{alg:root} and Wilson's Algorithm~\ref{alg:noroot} along with an implementation of Kruskal's minimum spanning tree algorithm where the order on the edges being processed by the algorithm can be chosen according to three different strategies. These strategies are as follows. Firstly, we can order all edges by increasing edge cost to get the classic Kruskal's algorithm for minimum spanning trees. Secondly, we can output a random permutation of the edges to get a simple ``randomized'' version of Kruskal's algorithm. Thirdly, we can output a random ordering of edges where the probability that we pick a certain edge weight in the ordering is proportional to its edge weight and the edge weight of all unpicked edges so far. The last two options correspond to a naive approach for sampling a random spanning tree as outlined in Section~\ref{naive-attempt}.
 
-Our implementation is written OCaml \texttt{4.11.0} and can be located in the \texttt{code} folder of the public GitHub repository for this project. We rely on the Dune \footnote{\url{https://github.com/ocaml/dune}} build system and Jane Street's Core \footnote{\url{https://opensource.janestreet.com/core/}} and Core\_Bench \footnote{\url{https://github.com/janestreet/core_bench}} libraries. Details on installing OCaml, the relevant dependencies and compiling the program can be found in the \texttt{README}. At a high-level, we have four modules.
+Our implementation is written OCaml \texttt{4.11.0} and can be located in the \texttt{code} folder of the public GitHub repository \footenote{\url{https://github.com/mdmoeller/6820-finalproject}} for this project. We rely on the Dune \footnote{\url{https://github.com/ocaml/dune}} build system and Jane Street's Core \footnote{\url{https://opensource.janestreet.com/core/}} and Core\_Bench \footnote{\url{https://github.com/janestreet/core_bench}} libraries. Details on installing OCaml, the relevant dependencies and compiling the program can be found in the \texttt{README}. At a high-level, we have four modules.
 
 \begin{itemize}
 \item \texttt{Parser}: The parser takes as an input a file name that describes the undirected graph we would like to analyze and outputs a representation of that graph that we use for our algorithms. The input file describes a graph as two integers $n$ and $m$ which correspond to the number of vertices and edges of the graph respectively. Furthermore, the user enters $m$ lines in the format $i,j,p$ which is interpreted as an edge $(i,j)$ with weight $p$. The parser output a set of vertices $\{0,\dots,n-1\}$ and a adjacency list representation of the graph.
@@ -321,7 +322,7 @@ We ran our test suite for $1$ million iterations for each algorithm on the graph
 
 We see the expected results. The simple randomized Kruskal's algorithm almost splits the experimental distribution to $1/3$ probability that any of spanning trees are selected and this makes sense as in this algorithm we pick the ordering of edges without considering the weights on them. All of Wilson's algorithms produce distributions very close to the expected split of $400000$ for $T_0$ and $T_1$ and $200000$ for $T_2$ which means that the algorithms experimentally also converge to the theoretical distribution. Finally, the naive edge-weight proportional Kruskal's algorithm puts more weight on the $T_1$ spanning tree by picking it more than half of the experimental runs which deviates from the theoretical distribution by a lot. This experiment serves as experimental evidence to the observations we make in Section~\ref{naive-attempt} that naive sampling of spanning trees will not produce distributions that are proportional to the edge weights of a graph.
 
-We also measure the runtime both in average micro-seconds to complete a single run of a given algorithm and the average of CPU cycles it took to complete a signle run of a given algorithm. Table~\ref{tab1} gives the performance results of our experiments. Here, kc stands for thousands (kilo) of cycles.
+We also measure the runtime both in average micro-seconds to complete a single run of a given algorithm and the average of CPU cycles it took to complete a single run of a given algorithm. Table~\ref{tab1} gives the performance results of our experiments. Here, kc stands for thousands (kilo) of cycles.
 
 \begin{table}[h!]
 \centering
@@ -348,9 +349,9 @@ Test name & Average Time & Average CPU cycles \\ [0.5ex]
 \label{tab1}
 \end{table}
 
-Here we see that Wilson's algorithm when a root is picked performs better than all of the other sampling algorithms and in some cases even better than the deterministic Kruskal's algorithm. This could be explained by the fact that Wilson's algorithm is quite simple and the normalization step is also straightforward as it involves dividing each node's out edge weights by the sum of all of it's out edge weights. The difference in the runtime of the randomized Kruskal algorithm's and the deterministic Kruskal's algorithm describes the cost of randomly selecting a set of edges as both the randomized Kruskal algorithms first randomizes the set of edges and then calls the same function as deterministic Kruskal. The worst performing algorithm is Wilson's unrooted algorithm and we believe that the overhead for this algorithm occurs from the $\epsilon$ chance parameter. The algorithm could run for many iterations while halving $\epsilon$ before it finds a spanning tree. Furthermore, the normalization step is a little more involved as it also requires adding self-loops to the input graph. Overall, we see that Wilson's algorithms also perform well compared to the naive algorithms by either outperforming naive algorithms or introducing an overhead of $37.5\%$ when compared to the simple naive algorithm and $25.8\%$ when compared to the proportional naive algorithm. In the microsecond scale this overhead does not matter much but one may want to prefer the rooted version of Wilson's algorithm for larger graphs as this algorithm performs considerably better than all the other algorithms we tested.
+Here we see that Wilson's algorithm when a root is picked performs better than all of the other sampling algorithms and in some cases even better than the deterministic Kruskal's algorithm. This could be explained by the fact that Wilson's algorithm is quite simple and the normalization step is also straightforward as it involves dividing each node's out edge weights by the sum of all of it's out edge weights. The difference in the runtime of the randomized Kruskal algorithm's and the deterministic Kruskal's algorithm describes the cost of randomly selecting a set of edges as both the randomized Kruskal algorithms first randomizes the set of edges and then calls the same function as deterministic Kruskal. The worst performing algorithm is Wilson's unrooted algorithm and we believe that the overhead for this algorithm occurs from the $\epsilon$ chance parameter. The algorithm could run for many iterations while halving $\epsilon$ before it finds a spanning tree. Furthermore, the normalization step is a little more involved as it also requires adding self-loops to the input graph. Overall, we see that Wilson's algorithms also perform well compared to the naive algorithms by either outperforming naive algorithms or introducing an overhead of $37.5\%$ when compared to the simple naive algorithm $25.8\%$ when compared to the proportional naive algorithm and $46.7\%$ compared to Wilson's algorithm with root $2$. In the microsecond scale this overhead does not matter much but one may want to prefer the rooted version of Wilson's algorithm for larger graphs as this algorithm performs considerably better than all the other algorithms we tested.
 
-\subsection{Test 2}
+\subsection{Test 2}\label{test2}
 
 As mentioned previously, we use the graph from the Wikipedia article for `Kruskal's algorithm.' The graph has $7$ vertices and $11$ edges. Figure~\ref{fig:graph2} gives this graph.
 
@@ -385,5 +386,95 @@ As mentioned previously, we use the graph from the Wikipedia article for `Kruska
 \caption{Visual representation of graph from Example section of Wikipedia article `Kruskal's algorithm.'} \label{fig:graph2}
 \end{figure}
 
+The graph in Figure~\ref{fig:graph2} has $6$ different roots and $141$ canonicalized spanning trees. This causes some cluttering if we were to present all the data in one chart so we choose to present the results for the following algorithms: simple randomized Kruskal, proportional randomized Kruskal, Wilson's algorithm with no root and Wilson's algorithm with the root chosen to be as $0$. The rest of the graphs comparing the expeted distribution to Wilson's algorithm where the root is chosen to be $1$ through $6$ can be found in the appendix Section~\ref{appendix1}. Figure~\ref{fig2} and Figure~\ref{fig3} presents the distributions obtained from our experiment. We use dashed vertical lines to delineate the experimental distrbitutions.
+
+\begin{figure}[ht]
+\includegraphics[scale=0.60]{fig2.png}
+\caption{Experimental results of the testing suite on Graph~\ref{fig:graph2} comparing the expected distribution to the distributions produced by simple randomized Kruskal, Wilson's unrooted algorithm and Wilson's algorithm with root $0$}
+\centering
+\label{fig2}
+\end{figure}
+
+\begin{figure}[ht]
+\includegraphics[scale=0.60]{fig3.png}
+\caption{Experimental results of the testing suite on Graph~\ref{fig:graph2} comparing the expected distribution to the distributions produced by proportional randomized Kruskal}
+\centering
+\label{fig3}
+\end{figure}
+
+We see similar results to Test 1 but the distributions do not perfectly line up with our expectations. The simple randomized Kruskal's algorithms appears to be converging to a $1/141\times10^6$ distribution of occurrences for all spanning trees of the graph but there is clearly some skew as some of the spanning trees occur more frequently than other spanning trees. All of Wilson's algorithms appear to still produce distributions close to the expected distribution as both the unrooted and the root $0$ algorithms produce the same spikes in the experimental distribution as the expected distribution and behave very similarly. This observation is backed up by the fact that the other graphs in Section~\ref{appendix1} of the appendix also show similar behavior. This shows us that despite the instability in the simple randomized algorithm, Wilson's algorithms also experimentally produce similar distributions to the theoretical distribution. We see that the naive edge-wight proportional Kruskal's algorithm produces a wildly different distibution than the theoretical expected distribution by favoring certain spanning trees more than other with one spanning tree shooting up to a frequency of almost $250000$ while other spanning trees have either $0$ frequency or a very low frequency causing them to not appear on the graph as bars. Out of all the algorithms we ran, we see this naive proportional one to perform the worst in terms of the produced distribution. Overall, our experiment shows us that Wilson's algorithms are clearly in the experimental setting the best way to sample random spanning trees from a graph while the proportional sampling should be avoided while the simple randomized sampling tends to produce a uniform distribution but may not always tend that way.
+
+Next, we also again measure the runtime both in average micro-seconds to complete a single run of a given algorithm and the average of CPU cycles it took to complete a single run of a given algorithm. Table~\ref{tab2} gives the performance results of these experiments.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{||c c c||} 
+\hline
+Test name & Average Time & Average CPU cycles \\ [0.5ex] 
+\hline\hline
+\text{Deterministic Kruskal} & $3.44\mu$s & $4.79$kc \\ 
+\hline
+\text{Simple random Kruskal} & $3.99\mu$s & $5.55$kc \\
+\hline
+\text{Proportional random Kruskal} & $5.40\mu$s & $7.51$kc \\
+\hline
+\text{Wilson's algorithm without root} & $6.13\mu$s & $8.54$kc \\
+\hline
+\text{Wilson's algorithm with root 0} & $3.60\mu$s & $5.02$kc \\ 
+\hline
+\text{Wilson's algorithm with root 1} & $3.18\mu$s & $4.43$kc \\ 
+\hline
+\text{Wilson's algorithm with root 2} & $3.52\mu$s & $4.90$kc \\
+\hline
+\text{Wilson's algorithm with root 3} & $3.11\mu$s & $4.32$kc \\ 
+\hline
+\text{Wilson's algorithm with root 4} & $3.07\mu$s & $4.27$kc \\ 
+\hline
+\text{Wilson's algorithm with root 5} & $3.38\mu$s & $4.71$kc \\
+\hline
+\text{Wilson's algorithm with root 6} & $3.36\mu$s & $4.67$kc \\ [1ex] 
+\hline
+\end{tabular}
+\caption{Performance results of the testing suite on Graph~\ref{fig:graph2}}
+\label{tab2}
+\end{table}
+
+We again see that Wilson's algorithm when a root is picked performs better than all of the other algorithms including this time deterministic Kruskal except for when the picked root it $0$. There is some slight variation in the runtimes produced by picking a root where picking the root as $4$ performs the best while picking the root as $0$ performs the worst. We're not sure whether the picked root has any effect on the performance of the algorithm or whether the the variation in runtimes can be attributed to the fact that some of our random walks found the spanning tree faster by virtue of the randomness. The latter explanation seems likely as the literature we have looked at makes no mention at how picking the root would affect the runtime of the algorithm. We also again see that the unrooted Wilson's algorithm performs the worst by introducing an overhead of $53.6\%$ compared to simple randomized Kruskal, $13.5\%$ compared to proportional random Kruskal and $70.3\%$ compared to Wilson's algorithm where the root is picked to be $0$. We see that the overhead compared to proportional random Kruskal has gone down compared to Test 1 while the overheads compared to simple randomized Kruskal and rooted Kruskal have gone up. While we have not performed any further experimental analysis, our intuition would lead us to believe that the gaps between random simple Kruskal and rooted Kruskal compared to unrooted Kruskal would continue to increase as the graph size increases while the gap between proportional random Kruskal and unrooted Kruksal would stay steady with the unrooted algorithm performing the worst. We reiterate our observation from Test 1 that while at the microsecond scale itm ight not matter which algorithm we choose to use, in the larger graph case it is becoming even clearer that we may want to perfer the rooted algorithm unless we do not want to fix our sample to a single root.
+
+\subsection{Potential Pitfalls of the Experimental Evaluation}
+
+We discuss some of the underlying reasons that may have biased our results. Firstly, our implementation of Wilson's algorithms used more of OCaml's imperative constructs while the sampling steps of the naive randomized algorithm relied on more functional constructs. We do not have a strong reason to believe that this biased our experiments given that the type of computations we performed were near identical and the only aspect that changed between the implementations were the pragmatics (that is what we used to achieve what we wanted to). Furthermore, the OCaml compiler is known to be very good at optimization so the functional code could take advantage of those optimizations while the imperative code is restricted to a limited form. Nonetheless, we thought it was noteworthy to mention our implementation differences.
+
+Secondly, we only performed two experiments on two graphs where each experiment ran a million times. While the number of runs is a good enough sample size, the number of graphs we considered is not. There could exist pathological cases, in terms of runtime, for all of our algorithms and we would either need to explore those theoretically or experimentally by considering a large database of graphs. In this case, comparing the distributions would not suffice and we would actually need to compute a distance between the experimental distributions and the theoretical ones. While with out experiments we can make some general observations that back-up our intuitions and our theoretical understanding of Wilson's algorithm, only a more robust testing suite can generalize those observations.
+
+Finally, it became apparent to use that benchmarking in OCaml is difficult due to the lack of libraries on the platform. We could have rolled out our own solution but we were inexperienced in benchmarking OCaml code (for example, we would need a way to stabilize the garbage collector between runs) and so we settled on a library that does this for us. This library is a bit of black box for us at the moment making it difficult to evaluate how it works and how well it is at measuring the runtime of a piece of code.
+
+\section{Conclusion}
+
+We presented Wilson's algorithms on sampling a random spanning tree from a graph with a probability proportional to the weight of the sampled tree. We also presented two naive algorithms and theoretically showed why these algorithms do not sample spanning trees correctly. Finally, we carried out two experiments that justified our theoretical observations and showed that Wilson's rooted algorithms perform the best when sampling a random spanning tree.
+
+Future work includes running more experiments where we measure the differences between distributions and considering whether Wilson's algorithms may have any pathological graphs that cause the algorithm to perform in its worst case runtime.
+
 \printbibliography
+
+\begin{appendices}\label{appendix}
+
+\section{Additional graphs from Section~\ref{test2}}\label{appendix1}
+
+\begin{figure}[ht]
+\includegraphics[scale=0.60]{fig4.png}
+\caption{Experimental results of the testing suite on Graph~\ref{fig:graph4} comparing the expected distribution to the distributions produced by Wilson's algorithm with roots $1$ through $3$}
+\centering
+\label{fig4}
+\end{figure}
+
+\begin{figure}[ht]
+\includegraphics[scale=0.60]{fig5.png}
+\caption{Experimental results of the testing suite on Graph~\ref{fig:graph5} comparing the expected distribution to the distributions produced by Wilson's algorithm with roots $4$ through $6$}
+\centering
+\label{fig5}
+\end{figure}
+
+\end{appendices}
+
 \end{document}
