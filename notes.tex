@@ -12,7 +12,7 @@
 \usepackage{hyperref}
 \hypersetup{
     colorlinks=true,
-    linkcolor=blue,    
+    linkcolor=blue,
     urlcolor=cyan,
 }
 
@@ -90,8 +90,16 @@ to Wilson \cite{wilson} for doing this in Section~\ref{wilson}. Then we will see
 how it can be extended to consider graphs with weights. In this case, the
 probability of sampling a given tree will be proportional to its weight.
 
-% Some stuff about how many trees there are?
-
+When dealing with these distributions, an amazing theorem, Kirchoff's Matrix
+Tree Theorem, gives that we can compute the number of spanning trees in a graph
+by deleting a row and column from the Laplacian and taking the determinant:
+\[ \#\text{spanning trees}(G) = \text{det}(L_G[i])\]
+where $L_G$ is as defined in the 6820 course notes, and $[i]$ meaning to set all
+the entries in the $ith$ row and $ith$ column to zero (remarkably, $i$ can be
+anything). David Williamson's ORIE6334 notes give two nice proofs
+\footnote{\url{https://people.orie.cornell.edu/dpw/orie6334/lecture8.pdf}}. To be clear: we have not
+taken ORIE6334, but rather discovered the notes exploring the topic for this
+project.
 
 \section{Naive First Attempt}\label{naive-attempt}
 
@@ -280,7 +288,8 @@ shown in Algorithm~\ref{alg:noroot}.
 
 \section{Analysis of Wilson's Algorithm}
 
-% Talk about markov chain proof
+A modern analysis of the correctness and running time of Wilson's algorithm is
+given by Marchal \cite{marchal}.
 
 \section{Implementation}\label{imp}
 
@@ -299,7 +308,7 @@ The generated program, \texttt{tree\_sampler}, can be used to run either any one
 
 \section{Evaluation}\label{eval}
 
-We are motivated by the followign two questions.
+We are motivated by the following two questions.
 
 \begin{enumerate}[1.]
 \item What kind of experimental distributions do the two Wilson algorithms and the two naive sampling algorithms produce?
