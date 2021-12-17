@@ -6,7 +6,7 @@ tree_sampler: _build/default/src/bin/tree_sampler.exe
 
 clean: 
 	dune clean --root=.
-	rm -f ./gossip
+	rm -f ./tree_sampler
 
 build:
 	dune build src/bin/tree_sampler.exe --root=.

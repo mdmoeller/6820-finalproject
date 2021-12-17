@@ -25,7 +25,7 @@ let canonc res = List.map (List.stable_sort res ~compare:(Tuple2.compare ~cmp1:I
 
 let () =
   Command.basic
-    ~summary:"Args for the program. (* fill this out later *)"
+    ~summary:"Program to sample random sample trees from a graph. See the README and then run this program with the -help flag."
     [%map_open.Command
       let fname = fname
       and mode = mode
@@ -34,7 +34,7 @@ let () =
         let graph = Parser.parse fname in
         let res, out =
           match mode with
-          | Root root -> Random_tree.with_root ~root ~graph |> canonc, Printf.sprintf "%s_wilson_root_out" fname
+          | Root root -> Random_tree.with_root ~root ~graph |> canonc, Printf.sprintf "%s_wilson_root%d_out" fname root
           | NoRoot -> Random_tree.without_root ~graph |> canonc, Printf.sprintf "%s_wilson_no_root_out" fname
           | KruskalDet -> Kruskal.det_kruskal ~graph |> canonc, Printf.sprintf "%s_det_kruskal_out" fname 
           | KruskalRandSimp -> Kruskal.simp_rand_kruskal ~graph |> canonc, Printf.sprintf "%s_simple_random_kruskal_out" fname
